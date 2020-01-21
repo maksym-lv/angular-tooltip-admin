@@ -1,0 +1,25 @@
+.image-list {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
+  list-style: none;
+  margin: 20px;
+  padding: 0;
+}
+
+
+.image {
+  height: 200px;
+}
+
+@media screen and (max-width: 986px) {
+  .image-list {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media screen and (max-width: 756px) {
+  .image-list {
+    grid-template-columns: repeat(2, auto);
+  }
+}

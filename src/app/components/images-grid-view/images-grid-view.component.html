@@ -1,0 +1,10 @@
+<ul class="image-list">
+  <li class="image-item" *ngFor="let image of images">
+    <img class="image"
+         [id]="image.id"
+         [src]="image.url"
+         [alt]="image.category"
+         (click)="onImageRedirectHandler($event)"
+    />
+  </li>
+</ul>

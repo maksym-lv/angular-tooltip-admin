@@ -1,0 +1,26 @@
+.mat-toolbar {
+  justify-content: space-between;
+  color: #fff;
+  background: #555;
+  min-width: 576px;
+}
+
+.mat-title {
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.upload-control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .label {
+    margin-right: 5px;
+  }
+}
+
+
+
+

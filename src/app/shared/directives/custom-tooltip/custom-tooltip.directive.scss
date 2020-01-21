@@ -1,0 +1,55 @@
+$main-bg: #282a36;
+
+.ng-tooltip {
+  position: absolute;
+  max-width: 150px;
+  font-size: 14px;
+  text-align: center;
+  color: #f8f8f2;
+  padding: 3px 8px;
+  background: $main-bg;
+  border-radius: 4px;
+  z-index: 1000;
+  opacity: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+  }
+}
+
+.ng-tooltip-top:after {
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: $main-bg transparent transparent transparent;
+}
+.ng-tooltip-bottom:after {
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-color: transparent transparent $main-bg transparent;
+}
+
+.ng-tooltip-left:after {
+  top: 50%;
+  left: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent transparent transparent $main-bg;
+}
+
+.ng-tooltip-right:after {
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-color: transparent $main-bg transparent transparent;
+}
+
+.ng-tooltip-show {
+  opacity: 1;
+}
