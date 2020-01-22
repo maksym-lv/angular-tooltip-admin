@@ -7,6 +7,7 @@ export class CustomTooltipDirective {
   @Input('appTooltip') tooltipTitle: string;
   @Input() placement: string;
   @Input() delay: string;
+  @Input() color: string;
   tooltip: HTMLElement;
   offset = 10;
 
@@ -59,7 +60,8 @@ export class CustomTooltipDirective {
     const tooltipPos = this.tooltip.getBoundingClientRect();
     const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
 
-    let top, left;
+    let top: number;
+    let left: number;
 
     if (this.placement === 'top') {
       top = hostPos.top - tooltipPos.height - this.offset;
@@ -81,7 +83,6 @@ export class CustomTooltipDirective {
       left = hostPos.right + this.offset;
     }
 
-    // 스크롤이 발생한 경우, tooltip 요소의 top에 세로 스크롤 좌표값을 반영하여야 한다.
     this.renderer.setStyle(this.tooltip, 'top', `${top + scrollPos}px`);
     this.renderer.setStyle(this.tooltip, 'left', `${left}px`);
   }

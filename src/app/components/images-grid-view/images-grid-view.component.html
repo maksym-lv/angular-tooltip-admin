@@ -1,5 +1,10 @@
 <ul class="image-list">
-  <li class="image-item" *ngFor="let image of images">
+  <li class="image-item"
+      *ngFor="let image of images"
+      [appTooltip]="image.tooltip_config.title"
+      [placement]="image.tooltip_config.placement"
+      [color]="image.tooltip_config.color"
+  >
     <img class="image"
          [id]="image.id"
          [src]="image.url"
