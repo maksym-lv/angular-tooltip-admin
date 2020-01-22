@@ -12,7 +12,7 @@
     />
 
     <ng-template [ngIf]="isPreviewMode">
-      <p>* Please attention that is preview Mode. All changes are NOT save yet</p>
+      <p class="warning">* Please attention that is Preview Mode. Changes have not yet been saved.</p>
     </ng-template>
   </div>
 
@@ -24,23 +24,26 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Update Tooltip Text"
+        <input matInput
+               placeholder="Tooltip Text"
                [value]="currentImage.tooltip_config.title"
-               formControlName="updateTooltipText"
+               formControlName="tooltipText"
         >
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Update Tooltip Placement"
+        <input matInput
+               placeholder="Tooltip Placement"
                [value]="currentImage.tooltip_config.placement"
-               formControlName="updateTooltipPlacement"
+               formControlName="tooltipPlacement"
         >
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Update Tooltip Color"
+        <input matInput
+               placeholder="Tooltip Color"
                [value]="currentImage.tooltip_config.color"
-               formControlName="updateTooltipColor"
+               formControlName="tooltipColor"
         >
       </mat-form-field>
 

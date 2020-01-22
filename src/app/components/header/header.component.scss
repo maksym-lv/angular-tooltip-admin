@@ -1,7 +1,9 @@
+@import './../../styles/pallete';
+
 .mat-toolbar {
   justify-content: space-between;
-  color: #fff;
-  background: #555;
+  color: $secondary-color;
+  background: $primary-color;
   min-width: 576px;
 }
 
@@ -17,7 +19,7 @@
   align-items: center;
 
   .label {
-    margin-right: 5px;
+    margin-right: 10px;
   }
 }
 

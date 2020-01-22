@@ -1,13 +1,13 @@
-$main-bg: #282a36;
+@import './../../../styles/pallete';
 
 .ng-tooltip {
   position: absolute;
   max-width: 150px;
   font-size: 14px;
   text-align: center;
-  color: #f8f8f2;
+  color: $secondary-color;
   padding: 3px 8px;
-  background: $main-bg;
+  background: $primary-color;
   border-radius: 4px;
   z-index: 1000;
   opacity: 0;
@@ -15,7 +15,7 @@ $main-bg: #282a36;
   .arrow {
     display: block;
     position: absolute;
-    color: $main-bg;
+    color: $primary-color;
 
     &:after {
       content: '';

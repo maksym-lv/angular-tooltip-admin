@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ImageService } from '../../shared/services/image.service';
+import { Image, TooltipConfig } from '../../interfaces/image';
 
 @Component({
   selector: 'app-image-details-view',
@@ -9,7 +10,7 @@ import { ImageService } from '../../shared/services/image.service';
   styleUrls: ['./image-details-view.component.scss']
 })
 export class ImageDetailsViewComponent implements OnInit {
-  currentImage: any;
+  currentImage: Image;
   isPreviewMode: boolean = false;
   adminToolForm: FormGroup;
 
@@ -18,8 +19,9 @@ export class ImageDetailsViewComponent implements OnInit {
 
   ngOnInit() {
     this.activeRoute.params.subscribe((params) => {
-      this.imageService.getImageById(params.id).subscribe((currentImage) => {
+      this.imageService.getImageById(params.id).subscribe((currentImage: Image) => {
         this.currentImage = currentImage;
+        this.setInitFormValue(currentImage);
       });
     });
 
@@ -28,36 +30,40 @@ export class ImageDetailsViewComponent implements OnInit {
 
   onPreview(): void {
     this.isPreviewMode = true;
-    this.buildUpdatedImageData();
+    const updatedTooltipConfig = this.buildUpdatedImageData();
+    this.currentImage = {...this.currentImage, tooltip_config: updatedTooltipConfig};
   }
 
   onSaveChanges(): void {
     this.isPreviewMode = false;
-    this.buildUpdatedImageData();
+    const updatedTooltipConfig = this.buildUpdatedImageData();
+    this.currentImage = {...this.currentImage, tooltip_config: updatedTooltipConfig};
     this.imageService.updateImage(this.currentImage);
   }
 
   private initAdminToolForm(): void {
     this.adminToolForm = new FormGroup({
-      updateImage: new FormControl(),
-      updateTooltipText: new FormControl(),
-      updateTooltipPlacement: new FormControl(),
-      updateTooltipColor: new FormControl()
+      tooltipText: new FormControl(),
+      tooltipPlacement: new FormControl(),
+      tooltipColor: new FormControl()
     });
   }
 
-  private buildUpdatedImageData() {
-    const { updateTooltipText, updateTooltipPlacement, updateTooltipColor } = this.adminToolForm.value;
-    const mapObj = {
-      title: updateTooltipText,
-      placement: updateTooltipPlacement,
-      color: updateTooltipColor
-    };
+  private setInitFormValue(currentImage: Image): void {
+    const { title, placement, color } = currentImage.tooltip_config;
+    this.adminToolForm.patchValue({
+      tooltipText: title,
+      tooltipPlacement: placement,
+      tooltipColor: color
+    });
+  }
 
-    for (const field in mapObj) {
-      if (mapObj.hasOwnProperty(field) && mapObj[field] !== null) {
-        this.currentImage.tooltip_config[field] = mapObj[field];
-      }
-    }
+  private buildUpdatedImageData(): TooltipConfig {
+    const { tooltipText, tooltipPlacement, tooltipColor } = this.adminToolForm.value;
+    return {
+      title: tooltipText,
+      placement: tooltipPlacement,
+      color: tooltipColor
+    };
   }
 }
