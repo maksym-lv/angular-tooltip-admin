@@ -1,6 +1,6 @@
 .image-list {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(5, auto);
   grid-gap: 10px;
   list-style: none;
   margin: 20px;
@@ -12,6 +12,12 @@
 
   .image {
     height: 200px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  .image-list {
+    grid-template-columns: repeat(4, auto);
   }
 }
 
