@@ -1,1 +1,53 @@
-<p>image-details-view works!</p>
+<section class="image-details-container">
+  <div class="image-section"
+       [appTooltip]="currentImage.tooltip_config.title"
+       [placement]="currentImage.tooltip_config.placement"
+       [color]="currentImage.tooltip_config.color"
+  >
+    <img class="image"
+         *ngIf="currentImage"
+         [id]="currentImage.id"
+         [src]="currentImage.url"
+         [alt]="currentImage.category"
+    />
+
+    <ng-template [ngIf]="isPreviewMode">
+      <p>* Please attention that is preview Mode. All changes are NOT save yet</p>
+    </ng-template>
+  </div>
+
+
+  <div class="admin-tool-section">
+    <form class="form" [formGroup]="adminToolForm">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Update Image">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Update Tooltip Text"
+               [value]="currentImage.tooltip_config.title"
+               formControlName="updateTooltipText"
+        >
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Update Tooltip Placement"
+               [value]="currentImage.tooltip_config.placement"
+               formControlName="updateTooltipPlacement"
+        >
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Update Tooltip Color"
+               [value]="currentImage.tooltip_config.color"
+               formControlName="updateTooltipColor"
+        >
+      </mat-form-field>
+
+      <div class="example-full-width">
+        <button mat-button (click)="onPreview()">Preview</button>
+        <button mat-button cdkFocusInitial color="primary" (click)="onSaveChanges()">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</section>

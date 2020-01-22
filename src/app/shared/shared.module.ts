@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatDialogModule,
   MatGridListModule,
   MatIconModule,
   MatToolbarModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatInputModule
 } from '@angular/material';
 import { CustomTooltipDirective } from './directives/custom-tooltip/custom-tooltip.directive';
-
 
 const IMPORTS = [
   MatButtonModule,
@@ -18,7 +19,8 @@ const IMPORTS = [
   MatIconModule,
   MatToolbarModule,
   MatDialogModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatInputModule
 ];
 
 const EXPORTS = [...IMPORTS];
@@ -27,13 +29,17 @@ const EXPORTS = [...IMPORTS];
   declarations: [CustomTooltipDirective],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     IMPORTS
   ],
   exports: [
     EXPORTS,
-    CustomTooltipDirective
+    BrowserAnimationsModule,
+    CustomTooltipDirective,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SharedModule { }

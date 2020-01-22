@@ -1,0 +1,27 @@
+.image-details-container {
+  display: grid;
+  padding: 10px 20px 0;
+  grid-template-columns: 420px 2fr;
+  justify-items: start;
+}
+
+.image-section {
+  padding: 10px;
+  border: 1px solid #282a36;
+
+  .image {
+    height: 400px;
+    width: 400px;
+  }
+}
+
+.admin-tool-section {
+  min-width: 400px;
+  width: 600px;
+  margin-left: 40px;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -8,13 +8,17 @@ export class ImageService {
   getImages() {
     return [...IMAGES_MOCK];
   }
+
+  getImageById(imageId: string) {
+    return [...IMAGES_MOCK].filter(item => item.id === imageId);
+  }
 }
 
 
 
 const IMAGES_MOCK = [
   {
-    id: 1,
+    id: '1',
     category: 'view',
     url: 'assets/img/annie-spratt-5LD1pzFifU0-unsplash.jpg',
     tooltip_config: {
@@ -24,7 +28,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 2,
+    id: '2',
     category: 'view',
     url: 'assets/img/christina-hernandez-829dmJ6DN3w-unsplash.jpg',
     tooltip_config: {
@@ -34,7 +38,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 3,
+    id: '3',
     category: 'view',
     url: 'assets/img/eric-vadeboncoeur-BgUDIlnnrXg-unsplash.jpg',
     tooltip_config: {
@@ -44,7 +48,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 4,
+    id: '4',
     category: 'view',
     url: 'assets/img/greg-ortega-1LCzr14Ah5U-unsplash.jpg',
     tooltip_config: {
@@ -54,7 +58,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 5,
+    id: '5',
     category: 'view',
     url: 'assets/img/joseph-chan-a1MT14dlZYs-unsplash.jpg',
     tooltip_config: {
@@ -64,7 +68,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 6,
+    id: '6',
     category: 'view',
     url: 'assets/img/joseph-gonzalez-rp3c2RMcwgw-unsplash.jpg',
     tooltip_config: {
@@ -74,7 +78,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 7,
+    id: '7',
     category: 'view',
     url: 'assets/img/lucy-heath-M01DfkOqz7I-unsplash.jpg',
     tooltip_config: {
@@ -84,7 +88,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 8,
+    id: '8',
     category: 'view',
     url: 'assets/img/nikhita-singhal-k8y9HrzonOQ-unsplash.jpg',
     tooltip_config: {
@@ -94,7 +98,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 9,
+    id: '9',
     category: 'view',
     url: 'assets/img/pineapple-supply-co-T7h7_v4Nwao-unsplash.jpg',
     tooltip_config: {
@@ -104,7 +108,7 @@ const IMAGES_MOCK = [
     }
   },
   {
-    id: 10,
+    id: '10',
     category: 'view',
     url: 'assets/img/rodrigo-ruiz-rM5ZHrQvUCc-unsplash.jpg',
     tooltip_config: {

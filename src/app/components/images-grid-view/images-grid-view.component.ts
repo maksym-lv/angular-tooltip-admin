@@ -16,12 +16,14 @@ export class ImagesGridViewComponent implements OnInit {
     this.images = this.imageService.getImages();
   }
 
-  onImageRedirectHandler(event: MouseEvent): void {
+  onImageRedirectHandler(event: MouseEvent): Promise<boolean> {
+    const tooltip = document.querySelector('.ng-tooltip');
+    tooltip.remove();
+
     const target = event.target as HTMLElement;
     const id = target.id;
 
-    console.log(event);
-    this.router.navigate(['image-detail', id]);
+    return this.router.navigate(['image-detail', id]);
   }
 
 }
