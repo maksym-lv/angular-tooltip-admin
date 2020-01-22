@@ -24,38 +24,15 @@ export class ImageDetailsViewComponent implements OnInit {
     this.initAdminToolForm();
   }
 
-  onPreview() {
+  onPreview(): void {
     this.isPreviewMode = true;
-    const { updateTooltipText, updateTooltipPlacement, updateTooltipColor } = this.adminToolForm.value;
-
-    const mapObj = {
-      title: updateTooltipText,
-      placement: updateTooltipPlacement,
-      color: updateTooltipColor
-    };
-
-    for (const field in mapObj) {
-      if (mapObj.hasOwnProperty(field) && mapObj[field] !== null) {
-        this.currentImage.tooltip_config[field] = mapObj[field];
-      }
-    }
+    this.buildUpdatedImageData();
   }
 
-  onSaveChanges() {
+  onSaveChanges(): void {
     this.isPreviewMode = false;
-    const { updateTooltipText, updateTooltipPlacement, updateTooltipColor } = this.adminToolForm.value;
-
-    const mapObj = {
-      title: updateTooltipText,
-      placement: updateTooltipPlacement,
-      color: updateTooltipColor
-    };
-
-    for (const field in mapObj) {
-      if (mapObj.hasOwnProperty(field) && mapObj[field] !== null) {
-        this.currentImage.tooltip_config[field] = mapObj[field];
-      }
-    }
+    this.buildUpdatedImageData();
+    this.imageService.updateImage(this.currentImage);
   }
 
   private initAdminToolForm(): void {
@@ -67,4 +44,18 @@ export class ImageDetailsViewComponent implements OnInit {
     });
   }
 
+  private buildUpdatedImageData() {
+    const { updateTooltipText, updateTooltipPlacement, updateTooltipColor } = this.adminToolForm.value;
+    const mapObj = {
+      title: updateTooltipText,
+      placement: updateTooltipPlacement,
+      color: updateTooltipColor
+    };
+
+    for (const field in mapObj) {
+      if (mapObj.hasOwnProperty(field) && mapObj[field] !== null) {
+        this.currentImage.tooltip_config[field] = mapObj[field];
+      }
+    }
+  }
 }

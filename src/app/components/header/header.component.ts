@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../../shared/services/modal.service';
 import { UploadImageModalComponent } from '../upload-image-modal/upload-image-modal.component';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +10,19 @@ import { UploadImageModalComponent } from '../upload-image-modal/upload-image-mo
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  headerTitle: string;
   routeHome: string = '/gallery';
 
-  constructor(private modalService: ModalService) { }
+  constructor(private modalService: ModalService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      map((e: NavigationEnd) => e.url)
+    ).subscribe((url) => {
+      this.headerTitle = (url.indexOf(this.routeHome) > -1) ? 'Grid Gallery' : 'Return to Gallery';
+    });
+  }
 
   onUploadImage(): void {
     this.modalService.openModal(UploadImageModalComponent);

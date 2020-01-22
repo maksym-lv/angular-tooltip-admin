@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class ImagesGridViewComponent implements OnInit {
   images: any;
 
-  constructor(private imageService: ImageService, private router: Router ) { }
+  constructor(private imageService: ImageService, private router: Router) { }
 
   ngOnInit() {
     this.images = this.imageService.getImages();

@@ -29,14 +29,14 @@ export class CustomTooltipDirective {
 
   hide() {
     this.renderer.removeClass(this.tooltip, 'ng-tooltip-show');
-    window.setTimeout(() => {
+    setTimeout(() => {
       this.renderer.removeChild(document.body, this.tooltip);
       this.tooltip = null;
     }, parseFloat(this.delay));
   }
 
   create() {
-    this.tooltip = this.renderer.createElement('span');
+    this.tooltip = this.renderer.createElement('div');
 
     this.renderer.appendChild(
       this.tooltip,
