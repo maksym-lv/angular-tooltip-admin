@@ -1,16 +1,22 @@
 import { Injectable } from '@angular/core';
+import { Observable, of, } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { SharedModule } from '../shared.module';
+import { Image } from '../../interfaces/image';
 
 @Injectable({
   providedIn: SharedModule
 })
 export class ImageService {
-  getImages() {
-    return [...IMAGES_MOCK];
+  getImages(): Observable<Image[]> {
+    return of(IMAGES_MOCK);
   }
 
-  getImageById(imageId: string) {
-    return [...IMAGES_MOCK].filter(item => item.id === imageId);
+  getImageById(imageId: string): Observable<Image> {
+    return of(IMAGES_MOCK).pipe(
+      map((images) => images.filter(image => image.id === imageId)),
+      map((filteredImage) => filteredImage[0])
+    );
   }
 
   updateImage(updatedImageData) {

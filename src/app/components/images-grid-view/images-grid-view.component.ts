@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../../shared/services/image.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Image } from '../../interfaces/image';
 
 @Component({
   selector: 'app-images-grid-view',
@@ -8,12 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./images-grid-view.component.scss']
 })
 export class ImagesGridViewComponent implements OnInit {
-  images: any;
+  images$: Observable<Image[]>;
 
   constructor(private imageService: ImageService, private router: Router) { }
 
   ngOnInit() {
-    this.images = this.imageService.getImages();
+    this.images$ = this.imageService.getImages();
   }
 
   onImageRedirectHandler(event: MouseEvent): Promise<boolean> {

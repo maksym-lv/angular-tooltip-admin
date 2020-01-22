@@ -18,7 +18,9 @@ export class ImageDetailsViewComponent implements OnInit {
 
   ngOnInit() {
     this.activeRoute.params.subscribe((params) => {
-      this.currentImage = this.imageService.getImageById(params.id)[0];
+      this.imageService.getImageById(params.id).subscribe((currentImage) => {
+        this.currentImage = currentImage;
+      });
     });
 
     this.initAdminToolForm();

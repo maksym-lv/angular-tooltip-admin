@@ -1,4 +1,4 @@
-<section class="image-details-container">
+<section class="image-details-container" *ngIf="currentImage">
   <div class="image-section"
        [appTooltip]="currentImage.tooltip_config.title"
        [placement]="currentImage.tooltip_config.placement"

@@ -1,6 +1,6 @@
 <ul class="image-list">
   <li class="image-item"
-      *ngFor="let image of images"
+      *ngFor="let image of images$ | async"
       [appTooltip]="image.tooltip_config.title"
       [placement]="image.tooltip_config.placement"
       [color]="image.tooltip_config.color"
