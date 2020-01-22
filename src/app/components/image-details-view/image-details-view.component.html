@@ -1,4 +1,4 @@
-<section class="image-details-container" *ngIf="currentImage">
+<section class="image-details-container" *ngIf="currentImage; else spinner">
   <div class="image-section"
        [appTooltip]="currentImage.tooltip_config.title"
        [placement]="currentImage.tooltip_config.placement"
@@ -51,3 +51,7 @@
     </form>
   </div>
 </section>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>

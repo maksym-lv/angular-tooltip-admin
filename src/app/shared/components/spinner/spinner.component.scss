@@ -1,0 +1,5 @@
+.centralized-wrapper {
+  display: grid;
+  height: calc(100% - 64px);
+  place-content: center;
+}

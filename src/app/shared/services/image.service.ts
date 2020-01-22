@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { delay, filter } from 'rxjs/operators';
+import { fromArray } from 'rxjs/internal/observable/fromArray';
 import { SharedModule } from '../shared.module';
 import { Image } from '../../interfaces/image';
+
 
 @Injectable({
   providedIn: SharedModule
 })
 export class ImageService {
   getImages(): Observable<Image[]> {
-    return of(IMAGES_MOCK);
+    return of(IMAGES_MOCK).pipe(
+      delay(500)
+    );
   }
 
   getImageById(imageId: string): Observable<Image> {
-    return of(IMAGES_MOCK).pipe(
-      map((images) => images.filter(image => image.id === imageId)),
-      map((filteredImage) => filteredImage[0])
+    return fromArray(IMAGES_MOCK).pipe(
+      filter((image: Image) => image.id === imageId),
+      delay(500)
     );
   }
 
@@ -33,8 +37,8 @@ const IMAGES_MOCK = [
     url: 'assets/img/annie-spratt-5LD1pzFifU0-unsplash.jpg',
     tooltip_config: {
       title: 'Default text',
-      placement: 'top',
-      color: 'red'
+      placement: 'right',
+      color: 'blue'
     }
   },
   {
@@ -53,7 +57,7 @@ const IMAGES_MOCK = [
     url: 'assets/img/eric-vadeboncoeur-BgUDIlnnrXg-unsplash.jpg',
     tooltip_config: {
       title: 'Default text',
-      placement: 'top',
+      placement: 'bottom',
       color: 'red'
     }
   },
@@ -63,7 +67,7 @@ const IMAGES_MOCK = [
     url: 'assets/img/greg-ortega-1LCzr14Ah5U-unsplash.jpg',
     tooltip_config: {
       title: 'Default text',
-      placement: 'top',
+      placement: 'left',
       color: 'red'
     }
   },

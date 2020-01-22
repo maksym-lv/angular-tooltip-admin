@@ -1,15 +1,21 @@
-<ul class="image-list">
-  <li class="image-item"
-      *ngFor="let image of images$ | async"
-      [appTooltip]="image.tooltip_config.title"
-      [placement]="image.tooltip_config.placement"
-      [color]="image.tooltip_config.color"
-  >
-    <img class="image"
-         [id]="image.id"
-         [src]="image.url"
-         [alt]="image.category"
-         (click)="onImageRedirectHandler($event)"
-    />
+<ul class="image-list" *ngIf="images$ | async; else spinner">
+  <li class="image-item" *ngFor="let image of images$ | async">
+    <span class="image-item-container"
+          [appTooltip]="image.tooltip_config.title"
+          [placement]="image.tooltip_config.placement"
+          [color]="image.tooltip_config.color"
+    >
+      <img class="image"
+           [id]="image.id"
+           [src]="image.url"
+           [alt]="image.category"
+           (click)="onImageRedirectHandler($event)"
+      />
+    </span>
+
   </li>
 </ul>
+
+<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>

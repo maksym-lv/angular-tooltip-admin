@@ -9,9 +9,11 @@ import {
   MatIconModule,
   MatToolbarModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { CustomTooltipDirective } from './directives/custom-tooltip/custom-tooltip.directive';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 const IMPORTS = [
   MatButtonModule,
@@ -20,13 +22,17 @@ const IMPORTS = [
   MatToolbarModule,
   MatDialogModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatProgressSpinnerModule
 ];
 
 const EXPORTS = [...IMPORTS];
 
 @NgModule({
-  declarations: [CustomTooltipDirective],
+  declarations: [
+    CustomTooltipDirective,
+    SpinnerComponent
+  ],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -38,6 +44,7 @@ const EXPORTS = [...IMPORTS];
     EXPORTS,
     BrowserAnimationsModule,
     CustomTooltipDirective,
+    SpinnerComponent,
     FormsModule,
     ReactiveFormsModule
   ]

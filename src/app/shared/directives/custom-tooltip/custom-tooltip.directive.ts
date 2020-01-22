@@ -47,11 +47,13 @@ export class CustomTooltipDirective {
 
     this.renderer.addClass(this.tooltip, 'ng-tooltip');
     this.renderer.addClass(this.tooltip, `ng-tooltip-${this.placement}`);
-
-    this.renderer.setStyle(this.tooltip, '-webkit-transition', `opacity ${this.delay}ms`);
-    this.renderer.setStyle(this.tooltip, '-moz-transition', `opacity ${this.delay}ms`);
-    this.renderer.setStyle(this.tooltip, '-o-transition', `opacity ${this.delay}ms`);
     this.renderer.setStyle(this.tooltip, 'transition', `opacity ${this.delay}ms`);
+    this.renderer.setStyle(this.tooltip, 'background', this.color);
+
+    const arrow = this.renderer.createElement('span');
+    this.renderer.addClass(arrow, 'arrow');
+    this.renderer.setStyle(arrow, 'color', this.color);
+    this.renderer.appendChild(this.tooltip, arrow);
   }
 
   setPosition() {
