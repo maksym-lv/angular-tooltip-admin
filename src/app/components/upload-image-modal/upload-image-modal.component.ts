@@ -24,7 +24,7 @@ export class UploadImageModalComponent implements OnDestroy {
     this.modalService.closeModal();
   }
 
-  onUpload() {
+  onUpload(): void {
     this.isLoading = true;
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(this.uploadedImage);
@@ -39,7 +39,7 @@ export class UploadImageModalComponent implements OnDestroy {
     };
   }
 
-  onSelectedFileHandler(uploadedFile) {
+  onSelectedFileHandler(uploadedFile): void {
     this.uploadedImage = uploadedFile;
   }
 }

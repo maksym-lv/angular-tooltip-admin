@@ -8,7 +8,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class InputUploadImageComponent  {
   @Output() selectedFile: EventEmitter<File> = new EventEmitter<File>();
 
-  onUploadFileHandler(event: Event) {
+  onUploadFileHandler(event: Event): void {
     const target = event.target as HTMLInputElement;
     const file = target.files[0];
 

@@ -73,7 +73,7 @@ export class ImageDetailsViewComponent implements OnInit, OnDestroy {
     };
   }
 
-  onSelectedFileHandler(uploadedFile) {
+  onSelectedFileHandler(uploadedFile): void {
     this.uploadedImage = uploadedFile;
   }
 
