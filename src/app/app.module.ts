@@ -9,6 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { UploadImageModalComponent } from './components/upload-image-modal/upload-image-modal.component';
 import { ImageDetailsViewComponent } from './pages/image-details-view/image-details-view.component';
 import { AppRoutingModule } from './app-routing.module';
+import { InputUploadImageComponent } from './components/input-upload-image/input-upload-image.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AppRoutingModule } from './app-routing.module';
     ImagesGridViewComponent,
     HeaderComponent,
     UploadImageModalComponent,
-    ImageDetailsViewComponent
+    ImageDetailsViewComponent,
+    InputUploadImageComponent
   ],
   imports: [
     BrowserModule,

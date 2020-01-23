@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalService } from '../../shared/services/modal.service';
 
 @Component({
@@ -6,18 +6,20 @@ import { ModalService } from '../../shared/services/modal.service';
   templateUrl: './upload-image-modal.component.html',
   styleUrls: ['./upload-image-modal.component.scss']
 })
-export class UploadImageModalComponent implements OnInit {
-  constructor(private modalService: ModalService) { }
+export class UploadImageModalComponent {
+  private uploadedImage: File;
 
-  ngOnInit() {
-  }
+  constructor(private modalService: ModalService) { }
 
   onCancel(): void {
     this.modalService.closeModal();
   }
 
-  onSave() {
-
+  onUpload() {
+    console.log(this.uploadedImage);
   }
 
+  onSelectedFileHandler(uploadedFile) {
+    this.uploadedImage = uploadedFile;
+  }
 }

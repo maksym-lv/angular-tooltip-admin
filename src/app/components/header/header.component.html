@@ -1,7 +1,7 @@
 <mat-toolbar>
   <h2 class="mat-title" [routerLink]="routeHome">{{headerTitle}}</h2>
 
-  <div class="upload-control">
+  <div class="upload-control" *ngIf="isUploadImageAllowed">
     <label class="label" for="upload-image">Upload image</label>
     <button id="upload-image"
             mat-mini-fab

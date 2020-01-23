@@ -12,6 +12,7 @@ import { filter, map } from 'rxjs/operators';
 export class HeaderComponent implements OnInit {
   headerTitle: string = 'Grid Gallery';
   routeHome: string = '/gallery';
+  isUploadImageAllowed: boolean = true;
 
   constructor(private modalService: ModalService, private router: Router) { }
 
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
       map((e: NavigationEnd) => e.url)
     ).subscribe((url) => {
       this.headerTitle = (url.indexOf(this.routeHome) > -1) ? 'Grid Gallery' : 'Return to Gallery';
+      this.isUploadImageAllowed = (url.indexOf(this.routeHome) > -1);
     });
   }
 

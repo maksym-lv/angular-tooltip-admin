@@ -14,6 +14,8 @@ export class ImageDetailsViewComponent implements OnInit {
   isPreviewMode: boolean = false;
   adminToolForm: FormGroup;
 
+  private uploadedImage: File;
+
   constructor(private imageService: ImageService, private activeRoute: ActivatedRoute) {
   }
 
@@ -39,6 +41,10 @@ export class ImageDetailsViewComponent implements OnInit {
     const updatedTooltipConfig = this.buildUpdatedImageData();
     this.currentImage = {...this.currentImage, tooltip_config: updatedTooltipConfig};
     this.imageService.updateImage(this.currentImage);
+  }
+
+  onSelectedFileHandler(uploadedFile) {
+    this.uploadedImage = uploadedFile;
   }
 
   private initAdminToolForm(): void {

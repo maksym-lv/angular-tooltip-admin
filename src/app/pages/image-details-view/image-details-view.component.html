@@ -19,9 +19,9 @@
 
   <div class="admin-tool-section">
     <form class="form" [formGroup]="adminToolForm">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Update Image">
-      </mat-form-field>
+      <div class="input-upload example-full-width">
+        <app-input-upload-image (selectedFile)="onSelectedFileHandler($event)"></app-input-upload-image>
+      </div>
 
       <mat-form-field class="example-full-width">
         <input matInput
@@ -47,9 +47,9 @@
         >
       </mat-form-field>
 
-      <div class="example-full-width">
-        <button mat-button (click)="onPreview()">Preview</button>
-        <button mat-button cdkFocusInitial color="primary" (click)="onSaveChanges()">Save Changes</button>
+      <div class="form-actions">
+        <button mat-raised-button (click)="onPreview()">Preview</button>
+        <button mat-raised-button cdkFocusInitial color="primary" (click)="onSaveChanges()">Save Changes</button>
       </div>
     </form>
   </div>

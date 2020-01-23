@@ -3,7 +3,7 @@
 
 .image-details-container {
   display: grid;
-  padding: 10px 20px 0;
+  padding: 20px;
   grid-template-columns: 420px 2fr;
   justify-items: start;
   min-width: 576px;
@@ -25,13 +25,29 @@
 }
 
 .admin-tool-section {
+  display: grid;
+  align-items: center;
   min-width: 420px;
   width: 420px;
   margin-left: 100px;
 
-  .form {
+  .input-upload {
+    padding-bottom: 20px;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  .form-actions {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    > :first-child {
+      margin-right: 10px;
+    }
   }
 }
 
