@@ -7,7 +7,8 @@ import { ImageDetailsViewComponent } from './pages/image-details-view/image-deta
 const appRoutes: Routes = [
   { path: 'gallery', component: ImagesGridViewComponent },
   { path: 'image-detail/:id', component: ImageDetailsViewComponent },
-  { path: '', redirectTo: '/gallery', pathMatch: 'full' }
+  { path: '', redirectTo: '/gallery', pathMatch: 'full' },
+  { path: '**', redirectTo: '/gallery'}
 ];
 
 @NgModule({

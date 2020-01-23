@@ -1,3 +1,5 @@
+@import '../../styles/mixins';
+
 .image-list {
   display: grid;
   grid-template-columns: repeat(5, auto);
@@ -5,6 +7,7 @@
   list-style: none;
   margin: 20px;
   padding: 0;
+  min-width: 576px;
 }
 
 .image-item-container {
@@ -15,19 +18,19 @@
   }
 }
 
-@media screen and (max-width: 1366px) {
+@include large {
   .image-list {
     grid-template-columns: repeat(4, auto);
   }
 }
 
-@media screen and (max-width: 986px) {
+@include medium {
   .image-list {
     grid-template-columns: repeat(3, auto);
   }
 }
 
-@media screen and (max-width: 756px) {
+@include small {
   .image-list {
     grid-template-columns: repeat(2, auto);
   }

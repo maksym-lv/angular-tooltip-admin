@@ -10,7 +10,7 @@ import { filter, map } from 'rxjs/operators';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  headerTitle: string;
+  headerTitle: string = 'Grid Gallery';
   routeHome: string = '/gallery';
 
   constructor(private modalService: ModalService, private router: Router) { }
