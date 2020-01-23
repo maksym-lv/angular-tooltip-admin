@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ImageService } from '../../shared/services/image.service';
+import { ImageService } from '../../services/image.service';
 import { ImageModel } from '../../models/image.model';
 import { TooltipConfigModel } from '../../models/tooltip-config.model';
 import { Subscription } from 'rxjs';
@@ -34,7 +34,9 @@ export class ImageDetailsViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   onPreview(): void {

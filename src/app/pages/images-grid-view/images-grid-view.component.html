@@ -1,6 +1,6 @@
 <ul class="image-list" *ngIf="images$ | async; else spinner">
-  <li class="image-item" *ngFor="let image of images$ | async">
-    <button mat-mini-fab color="warn" class="delete-image" (click)="onDeleteImage()">
+  <li class="image-item" *ngFor="let image of images$ | async; let id = index">
+    <button mat-mini-fab color="warn" class="delete-image" (click)="onDeleteImage(id)">
       <mat-icon>close</mat-icon>
     </button>
 
@@ -13,6 +13,7 @@
            [id]="image.id"
            [src]="image.url"
            [alt]="image.id"
+           [attr.index]="id"
            (click)="onImageRedirectHandler($event)"
       />
     </span>

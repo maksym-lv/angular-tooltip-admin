@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SharedModule } from '../shared.module';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ImageModel } from '../../models/image.model';
+import { ImageModel } from '../models/image.model';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -13,7 +12,7 @@ const httpOptions = {
 };
 
 @Injectable({
-  providedIn: SharedModule
+  providedIn: 'root'
 })
 export class ImageService {
   public updateImagesList$: Subject<void> = new Subject<void>();

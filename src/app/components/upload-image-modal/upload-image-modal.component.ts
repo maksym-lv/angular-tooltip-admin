@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { ModalService } from '../../shared/services/modal.service';
+import { ModalService } from '../../services/modal.service';
 import { ImageModel } from '../../models/image.model';
-import { ImageService } from '../../shared/services/image.service';
+import { ImageService } from '../../services/image.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,7 +17,9 @@ export class UploadImageModalComponent implements OnDestroy {
   constructor(private modalService: ModalService, private imageService: ImageService) { }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   onCancel(): void {

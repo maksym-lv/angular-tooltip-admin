@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ImageService } from '../../shared/services/image.service';
+import { ImageService } from '../../services/image.service';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { ImageModel } from '../../models/image.model';
@@ -38,9 +38,12 @@ export class ImagesGridViewComponent implements  OnInit, OnDestroy {
     return this.router.navigate(['image-detail', id]);
   }
 
-  onDeleteImage(): void {
-    const image = document.querySelector('.image');
-    this.imageService.deleteImage(image.id).pipe(takeUntil(this.destroySub))
+  onDeleteImage(index): void {
+    const imagesNodeList = document.querySelectorAll('.image');
+    const images = Array.from(imagesNodeList);
+    const selectedImage = images.filter((img) => img.getAttribute('index') === index.toString())[0];
+
+    this.imageService.deleteImage(selectedImage.id).pipe(takeUntil(this.destroySub))
       .subscribe(() => this.imageService.updateImagesList$.next());
   }
 

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
-import { SharedModule } from '../shared.module';
-
 
 @Injectable({
-  providedIn: SharedModule
+  providedIn: 'root'
 })
 export class ModalService {
   readonly defaultOptions = {
