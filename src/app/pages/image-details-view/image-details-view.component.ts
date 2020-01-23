@@ -39,26 +39,37 @@ export class ImageDetailsViewComponent implements OnInit, OnDestroy {
 
   onPreview(): void {
     this.isPreviewMode = true;
-    const fileReader: FileReader = new FileReader();
-    fileReader.readAsDataURL(this.uploadedImage);
-    const updatedTooltipConfig = this.updatedTooltipConfig();
-
-    fileReader.onloadend = () => {
-      this.currentImage = new ImageModel({...this.currentImage, url: fileReader.result, tooltip_config: updatedTooltipConfig});
-    };
+    this.uploadedImage ? this.saveWithImage() : this.saveWithOutImage();
   }
 
   onSaveChanges(): void {
     this.isPreviewMode = false;
+    this.uploadedImage ? this.saveWithImage() : this.saveWithOutImage();
+    this.adminToolForm.reset();
+  }
+
+  saveWithOutImage(): void {
+    const updatedTooltipConfig = this.updatedTooltipConfig();
+    const imageData = new ImageModel({...this.currentImage, tooltip_config: updatedTooltipConfig});
+    this.currentImage = imageData;
+
+    if (!this.isPreviewMode) {
+      this.subscription = this.imageService.updateImage(imageData).subscribe();
+    }
+  }
+
+  saveWithImage(): void {
+    const updatedTooltipConfig = this.updatedTooltipConfig();
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(this.uploadedImage);
-    const updatedTooltipConfig = this.updatedTooltipConfig();
 
     fileReader.onloadend = () => {
       const imageData = new ImageModel({...this.currentImage, url: fileReader.result, tooltip_config: updatedTooltipConfig});
       this.currentImage = imageData;
-      this.subscription = this.imageService.updateImage(imageData).subscribe();
-      this.adminToolForm.reset();
+
+      if (!this.isPreviewMode) {
+        this.subscription = this.imageService.updateImage(imageData).subscribe();
+      }
     };
   }
 
