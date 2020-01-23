@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit {
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       map((e: NavigationEnd) => e.url)
     ).subscribe((url) => {
-      this.headerTitle = (url.indexOf(this.routeHome) > -1) ? 'Grid Gallery' : 'Return to Gallery';
-      this.isUploadImageAllowed = (url.indexOf(this.routeHome) > -1);
+      this.headerTitle = (url.indexOf(this.routeHome) >= -1) ? 'Grid Gallery' : 'Return to Gallery';
+      this.isUploadImageAllowed = (url.indexOf(this.routeHome) >= -1);
     });
   }
 

@@ -10,6 +10,22 @@
   min-width: 576px;
 }
 
+.image-item {
+  display: flex;
+  flex-direction: row-reverse;
+
+  &:hover {
+    .delete-image {
+      display: inline-block;
+      position: absolute;
+    }
+  }
+
+  .delete-image {
+    display: none;
+  }
+}
+
 .image-item-container {
   display: inline-block;
 

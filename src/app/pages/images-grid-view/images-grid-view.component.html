@@ -1,5 +1,9 @@
 <ul class="image-list" *ngIf="images$ | async; else spinner">
   <li class="image-item" *ngFor="let image of images$ | async">
+    <button mat-mini-fab color="warn" class="delete-image" (click)="onDeleteImage()">
+      <mat-icon>close</mat-icon>
+    </button>
+
     <span class="image-item-container"
           [appTooltip]="image.tooltip_config.title"
           [placement]="image.tooltip_config.placement"
@@ -8,11 +12,10 @@
       <img class="image"
            [id]="image.id"
            [src]="image.url"
-           [alt]="image.category"
+           [alt]="image.id"
            (click)="onImageRedirectHandler($event)"
       />
     </span>
-
   </li>
 </ul>
 

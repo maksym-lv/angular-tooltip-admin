@@ -42,4 +42,9 @@ export class ImageService {
     const endpoint = `${this.basedUri}/images/${imageData.id}`;
     return this.http.patch<ImageModel>(endpoint, imageData, httpOptions);
   }
+
+  deleteImage(imageId: string): Observable<ImageModel> {
+    const endpoint = `${this.basedUri}/images/${imageId}`;
+    return this.http.delete<ImageModel>(endpoint);
+  }
 }
