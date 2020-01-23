@@ -56,7 +56,9 @@ export class ImageDetailsViewComponent implements OnInit, OnDestroy {
 
     fileReader.onloadend = () => {
       const imageData = new ImageModel({...this.currentImage, url: fileReader.result, tooltip_config: updatedTooltipConfig});
+      this.currentImage = imageData;
       this.subscription = this.imageService.updateImage(imageData).subscribe();
+      this.adminToolForm.reset();
     };
   }
 

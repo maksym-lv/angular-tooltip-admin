@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SharedModule } from '../shared.module';
 import { environment } from '../../../environments/environment';
@@ -12,11 +12,11 @@ const httpOptions = {
   })
 };
 
-
 @Injectable({
   providedIn: SharedModule
 })
 export class ImageService {
+  public updateImagesList$: Subject<void> = new Subject<void>();
   private basedUri: string = environment.basedUri;
 
   constructor(private http: HttpClient) {}

@@ -32,6 +32,7 @@ export class UploadImageModalComponent implements OnDestroy {
     fileReader.onloadend = () => {
       const imageData = new ImageModel({ url: fileReader.result });
       this.subscription = this.imageService.uploadImage(imageData).subscribe(() => {
+        this.imageService.updateImagesList$.next();
         this.isLoading = false;
         this.onCancel();
       });

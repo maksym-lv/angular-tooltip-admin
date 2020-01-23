@@ -1,26 +1,31 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ImageService } from '../../shared/services/image.service';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ImageModel } from '../../models/image.model';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-images-grid-view',
   templateUrl: './images-grid-view.component.html',
   styleUrls: ['./images-grid-view.component.scss']
 })
-export class ImagesGridViewComponent implements OnInit, OnDestroy {
+export class ImagesGridViewComponent implements  OnInit, OnDestroy {
   images$: Observable<ImageModel[]>;
-  private subscription: Subscription;
+  private destroySub: Subject<void> = new Subject<void>();
 
   constructor(private imageService: ImageService, private router: Router) { }
 
   ngOnInit() {
     this.images$ = this.imageService.getImages();
+
+    this.imageService.updateImagesList$.pipe(takeUntil(this.destroySub))
+      .subscribe(() => this.images$ = this.imageService.getImages());
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroySub.next();
+    this.destroySub.unsubscribe();
   }
 
   onImageRedirectHandler(event: MouseEvent): Promise<boolean> {
@@ -35,7 +40,8 @@ export class ImagesGridViewComponent implements OnInit, OnDestroy {
 
   onDeleteImage(): void {
     const image = document.querySelector('.image');
-    this.subscription = this.imageService.deleteImage(image.id).subscribe();
+    this.imageService.deleteImage(image.id).pipe(takeUntil(this.destroySub))
+      .subscribe(() => this.imageService.updateImagesList$.next());
   }
 
 }
