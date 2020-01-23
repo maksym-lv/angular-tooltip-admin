@@ -1,135 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { delay, filter } from 'rxjs/operators';
-import { fromArray } from 'rxjs/internal/observable/fromArray';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { SharedModule } from '../shared.module';
-import { Image } from '../../interfaces/image';
+import { environment } from '../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ImageModel } from '../../models/image.model';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+  })
+};
 
 
 @Injectable({
   providedIn: SharedModule
 })
 export class ImageService {
-  getImages(): Observable<Image[]> {
-    return of(IMAGES_MOCK).pipe(
-      delay(500)
+  private basedUri: string = environment.basedUri;
+
+  constructor(private http: HttpClient) {}
+
+  getImages(): Observable<ImageModel[]> {
+    const endpoint = `${this.basedUri}/images`;
+    return this.http.get<ImageModel[]>(endpoint);
+  }
+
+  getImageById(imageId: string): Observable<ImageModel> {
+    const endpoint = `${this.basedUri}/images?id=${imageId}`;
+    return this.http.get<ImageModel>(endpoint).pipe(
+      map((item => item[0]))
     );
   }
 
-  getImageById(imageId: string): Observable<Image> {
-    return fromArray(IMAGES_MOCK).pipe(
-      filter((image: Image) => image.id === imageId),
-      delay(500)
-    );
+  uploadImage(imageData: ImageModel): Observable<ImageModel> {
+    const endpoint = `${this.basedUri}/images`;
+    return this.http.post<ImageModel>(endpoint, imageData, httpOptions);
   }
 
-  updateImage(updatedImageData: Image): Image[] {
-    return IMAGES_MOCK.map((image) => {
-      return (image.id === updatedImageData.id) ? Object.assign(image, updatedImageData) : image;
-    });
+  updateImage(imageData: ImageModel): Observable<ImageModel> {
+    const endpoint = `${this.basedUri}/images/${imageData.id}`;
+    return this.http.patch<ImageModel>(endpoint, imageData, httpOptions);
   }
 }
-
-const IMAGES_MOCK = [
-  {
-    id: '1',
-    category: 'view',
-    url: 'assets/img/annie-spratt-5LD1pzFifU0-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'right',
-      color: 'blue'
-    }
-  },
-  {
-    id: '2',
-    category: 'view',
-    url: 'assets/img/christina-hernandez-829dmJ6DN3w-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'top',
-      color: 'red'
-    }
-  },
-  {
-    id: '3',
-    category: 'view',
-    url: 'assets/img/eric-vadeboncoeur-BgUDIlnnrXg-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'bottom',
-      color: 'red'
-    }
-  },
-  {
-    id: '4',
-    category: 'view',
-    url: 'assets/img/greg-ortega-1LCzr14Ah5U-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'left',
-      color: 'red'
-    }
-  },
-  {
-    id: '5',
-    category: 'view',
-    url: 'assets/img/joseph-chan-a1MT14dlZYs-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'bottom',
-      color: 'red'
-    }
-  },
-  {
-    id: '6',
-    category: 'view',
-    url: 'assets/img/joseph-gonzalez-rp3c2RMcwgw-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'top',
-      color: 'red'
-    }
-  },
-  {
-    id: '7',
-    category: 'view',
-    url: 'assets/img/lucy-heath-M01DfkOqz7I-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'right',
-      color: 'red'
-    }
-  },
-  {
-    id: '8',
-    category: 'view',
-    url: 'assets/img/nikhita-singhal-k8y9HrzonOQ-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'top',
-      color: 'red'
-    }
-  },
-  {
-    id: '9',
-    category: 'view',
-    url: 'assets/img/pineapple-supply-co-T7h7_v4Nwao-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'top',
-      color: 'red'
-    }
-  },
-  {
-    id: '10',
-    category: 'view',
-    url: 'assets/img/rodrigo-ruiz-rM5ZHrQvUCc-unsplash.jpg',
-    tooltip_config: {
-      title: 'Default text',
-      placement: 'top',
-      color: 'red'
-    }
-  }
-];
-

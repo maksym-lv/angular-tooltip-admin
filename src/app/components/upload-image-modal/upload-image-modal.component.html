@@ -8,7 +8,7 @@
   <button mat-button (click)="onCancel()">
     Cancel
   </button>
-  <button mat-button cdkFocusInitial color="primary" (click)="onUpload()">
+  <button mat-button cdkFocusInitial color="primary" [disabled]="isLoading" (click)="onUpload()">
     Upload
   </button>
 </div>

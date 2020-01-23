@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../../shared/services/image.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Image } from '../../interfaces/image';
+import { ImageModel } from '../../models/image.model';
 
 @Component({
   selector: 'app-images-grid-view',
@@ -10,7 +10,7 @@ import { Image } from '../../interfaces/image';
   styleUrls: ['./images-grid-view.component.scss']
 })
 export class ImagesGridViewComponent implements OnInit {
-  images$: Observable<Image[]>;
+  images$: Observable<ImageModel[]>;
 
   constructor(private imageService: ImageService, private router: Router) { }
 
