@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
-  DeleteImageAction, DeleteImageFailureAction, DeleteImageSuccessAction,
+  DeleteImageAction,
+  DeleteImageFailureAction,
+  DeleteImageSuccessAction,
   ImagesActionTypes,
   LoadImagesAction,
   LoadImagesFailureAction,
-  LoadImagesSuccessAction, UploadImageAction, UploadImageFailureAction,
+  LoadImagesSuccessAction,
+  LoadSelectedImageAction,
+  LoadSelectedImageFailureAction,
+  LoadSelectedImageSuccessAction,
+  UploadImageAction,
+  UploadImageFailureAction,
   UploadImageSuccessAction
 } from '../actions/images.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -28,9 +35,31 @@ export class ImagesEffect {
   );
 
   @Effect()
+  loadSelectedImage$ = this.actions$.pipe(
+    ofType<LoadSelectedImageAction>(ImagesActionTypes.LOAD_SELECTED_IMAGE),
+    mergeMap(data => this.imageService.getImageById(data.payload)
+      .pipe(
+        map(() => new LoadSelectedImageSuccessAction(data.payload)),
+        catchError( err => of(new LoadSelectedImageFailureAction(err)))
+      )
+    )
+  );
+
+  @Effect()
   uploadImage$ = this.actions$.pipe(
     ofType<UploadImageAction>(ImagesActionTypes.UPLOAD_IMAGE),
     mergeMap(data => this.imageService.uploadImage(data.payload)
+      .pipe(
+        map(() => new UploadImageSuccessAction(data.payload)),
+        catchError( err => of(new UploadImageFailureAction(err)))
+      )
+    )
+  );
+
+  @Effect()
+  updateImage$ = this.actions$.pipe(
+    ofType<UploadImageAction>(ImagesActionTypes.UPDATE_IMAGE),
+    mergeMap(data => this.imageService.updateImage(data.payload)
       .pipe(
         map(() => new UploadImageSuccessAction(data.payload)),
         catchError( err => of(new UploadImageFailureAction(err)))
@@ -48,6 +77,4 @@ export class ImagesEffect {
       )
     )
   );
-
-
 }
