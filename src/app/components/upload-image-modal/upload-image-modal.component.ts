@@ -1,20 +1,31 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalService } from '../../services/modal.service';
 import { ImageModel } from '../../models/image.model';
 import { ImageService } from '../../services/image.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { UploadImageAction } from '../../actions/images.actions';
+import { AppStore } from '../../interfaces/app-store';
 
 @Component({
   selector: 'app-upload-image-modal',
   templateUrl: './upload-image-modal.component.html',
   styleUrls: ['./upload-image-modal.component.scss']
 })
-export class UploadImageModalComponent implements OnDestroy {
-  isLoading: boolean = false;
+export class UploadImageModalComponent implements OnInit, OnDestroy {
+  loading$: Observable<boolean>;
   private uploadedImage: File;
   private subscription: Subscription;
 
-  constructor(private modalService: ModalService, private imageService: ImageService) { }
+  constructor(
+    private modalService: ModalService,
+    private imageService: ImageService,
+    private store: Store<AppStore>
+  ) { }
+
+  ngOnInit(): void {
+    this.loading$ = this.store.select(store => store.images.loading);
+  }
 
   ngOnDestroy(): void {
     if (this.subscription) {
@@ -27,17 +38,13 @@ export class UploadImageModalComponent implements OnDestroy {
   }
 
   onUpload(): void {
-    this.isLoading = true;
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(this.uploadedImage);
 
     fileReader.onloadend = () => {
       const imageData = new ImageModel({ url: fileReader.result });
-      this.subscription = this.imageService.uploadImage(imageData).subscribe(() => {
-        this.imageService.updateImagesList$.next();
-        this.isLoading = false;
-        this.onCancel();
-      });
+      this.store.dispatch(new UploadImageAction(imageData));
+      this.onCancel();
     };
   }
 

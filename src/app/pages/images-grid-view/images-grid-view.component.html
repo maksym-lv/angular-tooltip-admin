@@ -1,5 +1,5 @@
-<ul class="image-list" *ngIf="images$ | async; else spinner">
-  <li class="image-item" *ngFor="let image of images$ | async; let id = index">
+<ul class="image-list" *ngIf="!(loading$ | async) && !(error$ | async)">
+  <li class="image-item" *ngFor="let image of images | async; let id = index">
     <button mat-mini-fab color="warn" class="delete-image" (click)="onDeleteImage(id)">
       <mat-icon>close</mat-icon>
     </button>
@@ -20,6 +20,6 @@
   </li>
 </ul>
 
-<ng-template #spinner>
+<ng-template [ngIf]="loading$ | async">
   <app-spinner></app-spinner>
 </ng-template>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,7 +15,6 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ImageService {
-  public updateImagesList$: Subject<void> = new Subject<void>();
   private basedUri: string = environment.basedUri;
 
   constructor(private http: HttpClient) {}

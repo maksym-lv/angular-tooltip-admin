@@ -1,31 +1,33 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ImageService } from '../../services/image.service';
 import { Router } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ImageModel } from '../../models/image.model';
-import { takeUntil } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { DeleteImageAction, LoadImagesAction } from '../../actions/images.actions';
+import { AppStore } from '../../interfaces/app-store';
 
 @Component({
   selector: 'app-images-grid-view',
   templateUrl: './images-grid-view.component.html',
   styleUrls: ['./images-grid-view.component.scss']
 })
-export class ImagesGridViewComponent implements  OnInit, OnDestroy {
-  images$: Observable<ImageModel[]>;
-  private destroySub: Subject<void> = new Subject<void>();
+export class ImagesGridViewComponent implements  OnInit {
+  images: Observable<ImageModel[]>;
+  loading$: Observable<boolean>;
+  error$: Observable<Error>;
 
-  constructor(private imageService: ImageService, private router: Router) { }
+  constructor(
+    private imageService: ImageService,
+    private router: Router,
+    private store: Store<AppStore>
+  ) { }
 
   ngOnInit() {
-    this.images$ = this.imageService.getImages();
-
-    this.imageService.updateImagesList$.pipe(takeUntil(this.destroySub))
-      .subscribe(() => this.images$ = this.imageService.getImages());
-  }
-
-  ngOnDestroy(): void {
-    this.destroySub.next();
-    this.destroySub.unsubscribe();
+    this.images = this.store.select(store => store.images.list);
+    this.loading$ = this.store.select(store => store.images.loading);
+    this.error$ = this.store.select(store => store.images.error);
+    this.store.dispatch(new LoadImagesAction());
   }
 
   onImageRedirectHandler(event: MouseEvent): Promise<boolean> {
@@ -43,8 +45,7 @@ export class ImagesGridViewComponent implements  OnInit, OnDestroy {
     const images = Array.from(imagesNodeList);
     const selectedImage = images.filter((img) => img.getAttribute('index') === index.toString())[0];
 
-    this.imageService.deleteImage(selectedImage.id).pipe(takeUntil(this.destroySub))
-      .subscribe(() => this.imageService.updateImagesList$.next());
+    this.store.dispatch(new DeleteImageAction(selectedImage.id));
   }
 
 }
