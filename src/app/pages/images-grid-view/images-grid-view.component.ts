@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageService } from '../../services/image.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ImageModel } from '../../models/image.model';
@@ -18,7 +17,6 @@ export class ImagesGridViewComponent implements  OnInit {
   error$: Observable<Error>;
 
   constructor(
-    private imageService: ImageService,
     private router: Router,
     private store: Store<AppStore>
   ) { }
@@ -47,5 +45,4 @@ export class ImagesGridViewComponent implements  OnInit {
 
     this.store.dispatch(new DeleteImageAction(selectedImage.id));
   }
-
 }
